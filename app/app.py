@@ -55,3 +55,24 @@ def create():
     # result = cursor.fetchall()
 
     return jsonify(query)
+
+
+@app.route("/update/<int:id>", methods=["PUT"])
+def update(id):
+    data = request.json
+    Title = data["Title"]
+    ReleaseYear = data["ReleaseYear"]
+    Score = data["Score"]
+    
+    query = f"UPDATE dev.movies SET Title = \'{Title}\', ReleaseYear = {ReleaseYear} ,Score = {Score} WHERE id = {id}"
+
+    cursor.execute(query)
+    result = cursor.fetchall()
+    connection.commit()
+
+
+
+    cursor.execute('SELECT * FROM movies WHERE id = ' + str(id))
+    result = cursor.fetchall()
+
+    return jsonify(result)
