@@ -30,4 +30,13 @@ def all():
     
     return jsonify(result)
 
+@app.route('/movie/<int:id>')
+def movie(id):
+    cursor.execute('SELECT * FROM movies WHERE id = ' + str(id))
+    result = cursor.fetchall()
+    
+    if not result:
+        return jsonify({"Error":"Movie Not Found"})
+
+    return jsonify(result[0])
 
