@@ -40,3 +40,18 @@ def movie(id):
 
     return jsonify(result[0])
 
+
+def create():
+    data = request.json
+    Title = data["Title"]
+    ReleaseYear = data["ReleaseYear"]
+    Score = data["Score"]
+
+
+    query =f"INSERT INTO dev.movies(Title, ReleaseYear, Score) VALUE (\'{Title}\', {ReleaseYear}, {Score})"
+
+    cursor.execute(query)
+    connection.commit()
+    # result = cursor.fetchall()
+
+    return jsonify(query)
