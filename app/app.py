@@ -76,3 +76,17 @@ def update(id):
     result = cursor.fetchall()
 
     return jsonify(result)
+
+
+
+@app.route("/delete/<int:id>", methods=["DELETE"])
+def deleteMovie(id):
+    cursor.execute('DELETE FROM dev.movies WHERE id = ' + str(id))
+    connection.commit()
+
+
+    return str(id) + " was deleted from DB"
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
